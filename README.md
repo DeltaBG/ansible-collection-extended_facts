@@ -20,12 +20,24 @@ The only prerequisite is to have an [Ansible](https://docs.ansible.com/ansible/l
 If you want the module to return information from `smartctl`, you need to have a `smartmontools` package installed on each node.
 
 ### Installing
+From Galaxy:
+```sh
+ansible-galaxy collection install mlg1.extended_facts
+```
 
+From GitHub:
 ```sh
 ansible-galaxy collection install git+https://github.com/mlg1/ansible-collection-extended_facts.git,master
 ```
 
 To install via the `requirements.yml` file:
+```yaml
+collections:
+  - name: mlg1.extended_facts
+    version: 1.0.1
+    source: https://galaxy.ansible.com
+```
+or
 ```yaml
 collections:
   - name: https://github.com/mlg1/ansible-collection-extended_facts.git
