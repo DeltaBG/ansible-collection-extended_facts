@@ -7,7 +7,7 @@ This is a collection with a module for extended Ansible facts. Currently, the mo
 This collection contains the following ressources.
 
 | Ressources                                          | Comment                                                   |
-| :-------------------------------------------------- | :-------------------------------------------------------: |
+| :-------------------------------------------------- | :-------------------------------------------------------- |
 | **plugins/modules/extended_facts.py**               | Main script of module.                                    |
 | **plugins/module_utils/facts/extended/raid.py**     | Script for checking about RAID.                           |
 | **plugins/module_utils/facts/extended/smartctl.py** | Script for checking about block devices using smartctl.   |                                                            |
@@ -16,13 +16,16 @@ This collection contains the following ressources.
 
 The only prerequisite is to have an [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/index.html) >= 2.9
 
+#### Smartmontools
+If you want the module to return information from `smartctl`, you need to have a `smartmontools` package installed on each node.
+
 ### Installing
 
 ```sh
 ansible-galaxy collection install git+https://github.com/mlg1/ansible-collection-extended_facts.git,master
 ```
 
-To install via the requirements.yml file:
+To install via the `requirements.yml` file:
 ```yaml
 collections:
   - name: https://github.com/mlg1/ansible-collection-extended_facts.git
@@ -39,7 +42,11 @@ collections:
   gather_facts: no
   tasks:
 
-    - name: Gathering extended facts
+    - name: Install smartmontools to receive data from smartctl
+      package:
+        name: smartmontools
+
+    - name: Gather extended facts
       mlg1.extended_facts.extended_facts:
 
     # Print extended facts
