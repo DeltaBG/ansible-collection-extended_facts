@@ -1,0 +1,28 @@
+namespace: mlg1
+name: extended_facts
+version: 1.0.0
+readme: README.md
+authors:
+- Nedelin Petkov <mlg@abv.bg>
+description: Module for extended Ansible facts.
+license:
+- MIT
+license_file: 'LICENSE'
+tags: [ 'automation', 'linux', 'system' ]
+dependencies: {}
+repository: https://github.com/mlg1/ansible-collection-extended_facts
+documentation: https://github.com/mlg1/ansible-collection-extended_facts/tree/master/docs
+homepage: https://github.com/mlg1/ansible-collection-extended_facts
+issues: https://github.com/mlg1/ansible-collection-extended_facts/issues
+
+# A list of file glob-like patterns used to filter any files or directories that should not be included in the build
+# artifact. A pattern is matched from the relative path of the file or directory of the collection directory. This
+# uses 'fnmatch' to match the files or directories. Some directories and files like 'galaxy.yml', '*.pyc', '*.retry',
+# and '.git' are always filtered
+build_ignore: 
+- galaxy.yml
+- '*.pyc'
+- '*.retry'
+- .git
+- tests/
+- '*.tar.gz'
