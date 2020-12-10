@@ -54,8 +54,8 @@ from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.facts.namespace import PrefixFactNamespace
 from ansible.module_utils.facts import ansible_collector
 
-from ansible.module_utils.facts.extended.raid import RaidFactCollector
-from ansible.module_utils.facts.extended.smartctl import SmartctlFactCollector
+from ansible_collections.mlg1.extended_facts.plugins.module_utils.facts.extended.raid import RaidFactCollector
+from ansible_collections.mlg1.extended_facts.plugins.module_utils.facts.extended.smartctl import SmartctlFactCollector
 
 def main():
     module = AnsibleModule(

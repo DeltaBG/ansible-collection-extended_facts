@@ -40,7 +40,7 @@ collections:
   tasks:
 
     - name: Gathering extended facts
-      extended_facts:
+      mlg1.extended_facts.extended_facts:
 
     # Print extended facts
     - name: Debug
