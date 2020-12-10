@@ -37,8 +37,7 @@ class SmartctlFactCollector(BaseFactCollector):
             rc, smartctl_output, err = module.run_command([smartctl_bin, '--scan-open'])
             #smartctl_facts['raw_output'] = smartctl_output # Uncomment for debug
             smartctl_facts['devices'] = []
-            #smartctl_regex = re.compile(r'\n(/.*?)\s+-d\s+(.*?)\s+#\s+(.*)')
-            smartctl_regex = re.compile(r'\n(/.*?)\s+-d\s+(.*?)\s+#\s+(.*?\[(.*?)\].*)')
+            smartctl_regex = re.compile(r'^(/.*?)\s+-d\s+(.*?)\s+#\s+(.*)', re.MULTILINE)
             for device in smartctl_regex.findall(smartctl_output):
                 smartctl_facts['devices'].append({
                     'device'         : device[0],
