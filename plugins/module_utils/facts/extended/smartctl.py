@@ -43,6 +43,7 @@ class SmartctlFactCollector(BaseFactCollector):
                     'device'         : device[0],
                     'type'           : device[1],
                     'comment'        : device[2],
+                    'name'           : device[1].replace('+', '_').replace(',', '_'),
                     'check_smart.pl' : 'check_smart.pl -d {} -i {}'.format(device[0], device[1])
                 })
             # If have no devices
