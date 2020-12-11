@@ -1,7 +1,27 @@
 #!/usr/bin/python
+#
+# MIT License
+#
+# Copyright (c) 2020 Nedelin Petkov <mlg@abv.bg>
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
 
-# Copyright: (c) 2020, Nedelin Petkov <mlg@abv.bg>
-# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
@@ -11,7 +31,7 @@ module: extended_facts
 
 short_description: Module for extended Ansible facts.
 
-version_added: "1.0.0"
+version_added: "1.0.2"
 
 description: Collecting information about the system in favor.
 
@@ -47,6 +67,16 @@ ansible_facts:
       device: '/dev/bus/0'
       name: 'megaraid_disk_01'
       type: 'sat+megaraid,1'
+  mysql:
+    service:
+      description: 'MariaDB 10.3.14 database server'
+      name: 'mariadb.service'
+      service: 'mariadb'
+      source: 'systemd'
+      status: 'running'
+    version:
+      client: '15.1'
+      server: '10.3.14-MariaDB'
 '''
 
 from ansible.module_utils.basic import AnsibleModule
@@ -56,6 +86,7 @@ from ansible.module_utils.facts import ansible_collector
 
 from ansible_collections.mlg1.extended_facts.plugins.module_utils.facts.extended.raid import RaidFactCollector
 from ansible_collections.mlg1.extended_facts.plugins.module_utils.facts.extended.smartctl import SmartctlFactCollector
+from ansible_collections.mlg1.extended_facts.plugins.module_utils.facts.extended.mysql import MysqlFactCollector
 
 def main():
     module = AnsibleModule(
@@ -71,11 +102,12 @@ def main():
     gather_subset = module.params['gather_subset']
     gather_timeout = module.params['gather_timeout']
     filter_spec = module.params['filter']
-    minimal_gather_subset = frozenset(['raid','smartctl'])
+    minimal_gather_subset = frozenset(['raid','smartctl', 'mysql'])
 
     all_collector_classes = [
         RaidFactCollector,
-        SmartctlFactCollector
+        SmartctlFactCollector,
+        MysqlFactCollector
     ]
 
     # rename namespace_name to root_key?

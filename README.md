@@ -10,7 +10,8 @@ This collection contains the following ressources.
 | :-------------------------------------------------- | :-------------------------------------------------------- |
 | **plugins/modules/extended_facts.py**               | Main script of module.                                    |
 | **plugins/module_utils/facts/extended/raid.py**     | Script for checking about RAID.                           |
-| **plugins/module_utils/facts/extended/smartctl.py** | Script for checking about block devices using smartctl.   |                                                            |
+| **plugins/module_utils/facts/extended/smartctl.py** | Script for checking about block devices using smartctl.   |
+| **plugins/module_utils/facts/extended/mysql.py**    | Script for checking about MySQL.                          |
 
 ### Prerequisites
 
@@ -34,7 +35,7 @@ To install via the `requirements.yml` file:
 ```yaml
 collections:
   - name: mlg1.extended_facts
-    version: 1.0.1
+    version: 1.0.2
     source: https://galaxy.ansible.com
 ```
 or
