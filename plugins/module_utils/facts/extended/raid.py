@@ -25,7 +25,7 @@ class RaidFactCollector(BaseFactCollector):
             for line in get_file_lines('/proc/modules'):
 
                 # If have LSI Megaraid / DELL PERC
-                if re.search('megaraid_sas\s+', line):
+                if re.search('^megaraid_sas\s+', line):
                     raid_facts['megaraid'] = {}
 
                     if os.path.exists('/proc/scsi/scsi'):
@@ -52,7 +52,7 @@ class RaidFactCollector(BaseFactCollector):
                                 raid_facts['megaraid']['cli'] = 'megacli'
 
                 # If have 3ware
-                elif re.search('3w-xxxx\s+', line):
+                elif re.search('^3w-xxxx\s+', line):
                     # TODO: This part of the module is to be developed. Must return the following information:
                     raid_facts['3ware'] = {
                         'cli'    : 'tw_cli',
@@ -63,9 +63,8 @@ class RaidFactCollector(BaseFactCollector):
                         'vendor' : '3ware'
                     }
 
-
                 # If have mdadm
-                elif re.search('md\s+|raid0\s+|raid1\s+|raid5\s+|raid6\s+|raid10\s+', line):
+                elif re.search('^md\s+|^raid0\s+|^raid1\s+|^raid5\s+|^raid6\s+|^raid10\s+', line):
                     mdadm_bin = module.get_bin_path('mdadm')
                     if mdadm_bin:
                         rc, mdadm_output, mdadm_error = module.run_command([mdadm_bin, '-V'])
@@ -87,31 +86,6 @@ class RaidFactCollector(BaseFactCollector):
                             'type'    : 'software',
                             'vendor'  : 'Linux'
                         }
-
-
-
-        # # LSI Megaraid / DELL PERC
-        # if os.path.exists('/proc/scsi/scsi'):
-        #     raid_facts = {}
-
-        #     raid_facts['megaraid_sas']['model'] = 'unknown'
-        #     for line in get_file_lines('/proc/scsi/scsi'):
-        #         raid_facts['megaraid_sas'] = {}
-
-        #         if raid_facts['megaraid_sas']['model'] == 'unknown':
-        #             model = re.match(r'Model:\s?(.*)\s\s', line)
-        #             if model:
-        #                 raid_facts['megaraid_sas']['model'] = model
-        #             else:
-        #                 raid_facts['megaraid_sas']['model'] = 'unknown'
-
-
-        #             # if re.match(r'^VxID:\s+0', line):
-        #             #     virtual_facts['virtualization_role'] = 'host'
-        #             # else:
-        #             #     virtual_facts['virtualization_role'] = 'guest'
-        #             # return virtual_facts
-
 
         facts_dict['raid'] = raid_facts
         return facts_dict

@@ -27,25 +27,20 @@ __metaclass__ = type
 
 DOCUMENTATION = r'''
 ---
-module: extended_facts
-
-short_description: Module for extended Ansible facts.
-
+module: mlg1.extended_facts.extended_facts
+short_description: Module for extended Ansible facts
 version_added: "1.0.2"
-
-description: Collecting information about the system in favor.
-
+description:
+  - Collecting information about the system in favor
 author:
-    - Nedelin Petkov (https://github.com/mlg1/)
+  - Nedelin Petkov (https://github.com/mlg1/)
 '''
 
 EXAMPLES = r'''
 - name: Gathering extended facts
-  extended_facts:
-'''
+  mlg1.extended_facts.extended_facts:
 
-RETURN = r'''
-# These are examples of possible return values, and in general should use other names for return values.
+# These are examples of possible return values.
 ansible_facts:
   raid:
     megaraid:
