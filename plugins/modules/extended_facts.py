@@ -27,7 +27,7 @@ __metaclass__ = type
 
 DOCUMENTATION = r'''
 ---
-module: mlg1.extended_facts.extended_facts
+module: deltabg.extended_facts.extended_facts
 short_description: Module for extended Ansible facts
 version_added: "1.0.2"
 description:
@@ -38,7 +38,7 @@ author:
 
 EXAMPLES = r'''
 - name: Gathering extended facts
-  mlg1.extended_facts.extended_facts:
+  deltabg.extended_facts.extended_facts:
 
 # These are examples of possible return values.
 ansible_facts:
@@ -79,9 +79,9 @@ from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.facts.namespace import PrefixFactNamespace
 from ansible.module_utils.facts import ansible_collector
 
-from ansible_collections.mlg1.extended_facts.plugins.module_utils.facts.extended.raid import RaidFactCollector
-from ansible_collections.mlg1.extended_facts.plugins.module_utils.facts.extended.smartctl import SmartctlFactCollector
-from ansible_collections.mlg1.extended_facts.plugins.module_utils.facts.extended.mysql import MysqlFactCollector
+from ansible_collections.deltabg.extended_facts.plugins.module_utils.facts.extended.raid import RaidFactCollector
+from ansible_collections.deltabg.extended_facts.plugins.module_utils.facts.extended.smartctl import SmartctlFactCollector
+from ansible_collections.deltabg.extended_facts.plugins.module_utils.facts.extended.mysql import MysqlFactCollector
 
 def main():
     module = AnsibleModule(

@@ -23,25 +23,25 @@ If you want the module to return information from `smartctl`, you need to have a
 ### Installing
 From Galaxy:
 ```sh
-ansible-galaxy collection install mlg1.extended_facts
+ansible-galaxy collection install deltabg.extended_facts
 ```
 
 From GitHub:
 ```sh
-ansible-galaxy collection install git+https://github.com/mlg1/ansible-collection-extended_facts.git,master
+ansible-galaxy collection install git+https://github.com/deltabg/ansible-collection-extended_facts.git,master
 ```
 
 To install via the `requirements.yml` file:
 ```yaml
 collections:
-  - name: mlg1.extended_facts
+  - name: deltabg.extended_facts
     version: 1.0.2
     source: https://galaxy.ansible.com
 ```
 or
 ```yaml
 collections:
-  - name: https://github.com/mlg1/ansible-collection-extended_facts.git
+  - name: https://github.com/deltabg/ansible-collection-extended_facts.git
     type: git
     version: master
 ```
@@ -60,7 +60,7 @@ collections:
         name: smartmontools
 
     - name: Gather extended facts
-      mlg1.extended_facts.extended_facts:
+      deltabg.extended_facts.extended_facts:
 
     # Print extended facts
     - name: Debug

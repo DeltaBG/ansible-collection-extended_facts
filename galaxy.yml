@@ -1,6 +1,6 @@
-namespace: mlg1
+namespace: deltabg
 name: extended_facts
-version: 1.0.3
+version: 1.0.4
 readme: README.md
 authors:
 - Nedelin Petkov <mlg@abv.bg>
@@ -8,10 +8,10 @@ description: Module for extended Ansible facts.
 license_file: 'LICENSE'
 tags: [ 'automation', 'linux', 'system' ]
 dependencies: {}
-repository: https://github.com/mlg1/ansible-collection-extended_facts
-documentation: https://github.com/mlg1/ansible-collection-extended_facts/tree/master/docs
-homepage: https://github.com/mlg1/ansible-collection-extended_facts
-issues: https://github.com/mlg1/ansible-collection-extended_facts/issues
+repository: https://github.com/deltabg/ansible-collection-extended_facts
+documentation: https://github.com/deltabg/ansible-collection-extended_facts/tree/master/docs
+homepage: https://github.com/deltabg/ansible-collection-extended_facts
+issues: https://github.com/deltabg/ansible-collection-extended_facts/issues
 build_ignore: 
 - tests/
 - galaxy.yml

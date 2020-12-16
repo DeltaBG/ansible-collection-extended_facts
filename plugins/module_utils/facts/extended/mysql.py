@@ -11,7 +11,7 @@ import re
 from ansible.module_utils.facts.collector import BaseFactCollector
 from ansible.module_utils.facts.utils import get_file_content, get_file_lines
 
-from ansible_collections.mlg1.extended_facts.plugins.module_utils.facts.extended.utils import get_active_services
+from ansible_collections.deltabg.extended_facts.plugins.module_utils.facts.extended.utils import get_active_services
 
 class MysqlFactCollector(BaseFactCollector):
     name = 'mysql'
