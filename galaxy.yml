@@ -1,6 +1,6 @@
 namespace: mlg1
 name: extended_facts
-version: 1.0.2
+version: 1.0.3
 readme: README.md
 authors:
 - Nedelin Petkov <mlg@abv.bg>
