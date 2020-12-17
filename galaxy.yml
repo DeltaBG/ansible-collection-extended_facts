@@ -16,6 +16,7 @@ build_ignore:
 - tests/
 - galaxy.yml
 - .git
+- .travis.yml
 - '*.pyc'
 - '*.retry'
 - '*.tar.gz'

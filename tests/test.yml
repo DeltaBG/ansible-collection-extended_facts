@@ -1,0 +1,17 @@
+---
+- name: Get extended facts
+  hosts: localhost
+  gather_facts: no
+  tasks:
+
+    - name: Install smartmontools to receive data from smartctl
+      package:
+        name: smartmontools
+
+    - name: Gather extended facts
+      deltabg.extended_facts.extended_facts:
+
+    # Print extended facts
+    - name: Debug
+      debug:
+        var: ansible_facts
