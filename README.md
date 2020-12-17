@@ -1,5 +1,7 @@
 # Ansible Collection - Extended facts
 
+[![Build Status](https://travis-ci.com/DeltaBG/ansible-collection-extended_facts.svg?branch=master)](https://travis-ci.com/DeltaBG/ansible-collection-extended_facts)
+
 This is a collection with a module for extended Ansible facts. Currently, the module returns information about RAID controllers and `smartctl --scan-open`.
 
 ## Getting Started
