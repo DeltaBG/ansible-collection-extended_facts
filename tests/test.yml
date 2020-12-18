@@ -1,6 +1,7 @@
 ---
 - name: Get extended facts
   hosts: localhost
+  connection: local
   gather_facts: no
   tasks:
 
