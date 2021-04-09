@@ -11,31 +11,42 @@ import re
 from ansible.module_utils.facts.collector import BaseFactCollector
 from ansible.module_utils.facts.utils import get_file_content, get_file_lines
 
-from ansible_collections.deltabg.extended_facts.plugins.module_utils.facts.extended.utils import get_active_services
+from ansible_collections.deltabg.extended_facts.plugins.module_utils.facts.extended.utils import FindService
 
 class MysqlFactCollector(BaseFactCollector):
     name = 'mysql'
     _fact_ids = set()
 
+    # Service vars
+    bin_name = name
+    service_names = ['mysql', 'mysqld', 'mariadb']
+    service_ver_regex = r'.*?\s+[V-v]er\s(.*?)\s+[D-d]istrib\s+(.*?)\s+for.*'
+
     def collect(self, module=None, collected_facts=None):
         facts_dict = {}
-        mysql_facts = {} # This is default
+        facts = [] # This is default
 
-        # Check if there is MYSQL
-        active_services = get_active_services(['mysql', 'mysqld', 'mariadb'], module)
+        svc_module = FindService()
+        active_services = svc_module.gather_service(self.service_names, module)
         if active_services:
-            mysql_facts['service'] = active_services[0]
+            for service in active_services:
+                if service['source'] == 'docker':
+                    docker_bin = module.get_bin_path('docker')
+                    if docker_bin:
+                        service_ver_command = '%s exec -i %s %s --version' % (docker_bin, service['name'], self.bin_name)
 
-            # If have MySQL, check version and other
-            mysql_bin = module.get_bin_path('mysql')
-            if mysql_bin:
-                rc, mysql_output, err = module.run_command([mysql_bin, '--version'])
-                mysql_regex = re.compile(r'.*?\s+[V-v]er\s(.*?)\s+[D-d]istrib\s+(.*?)\s+for.*')
-                mysql_version = mysql_regex.findall(mysql_output)
-                mysql_facts['version'] = {
-                    'client' : mysql_version[0][0],
-                    'server' : mysql_version[0][1].replace(',', '')
-                }
+                else:
+                    service_bin = module.get_bin_path(self.bin_name)
+                    if service_bin:
+                        service_ver_command = '%s --version' % service_bin
 
-        facts_dict['mysql'] = mysql_facts
+                rc, service_output, err = module.run_command('%s' % service_ver_command, use_unsafe_shell=True)
+                if not rc:
+                    service_regex = re.compile(self.service_ver_regex)
+                    service_version = service_regex.findall(service_output)
+                    service['version'] = service_version[0][1].replace(',', '')
+
+                facts.append(service)
+
+        facts_dict[self.name] = facts
         return facts_dict
