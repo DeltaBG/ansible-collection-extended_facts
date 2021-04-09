@@ -82,6 +82,8 @@ from ansible.module_utils.facts import ansible_collector
 from ansible_collections.deltabg.extended_facts.plugins.module_utils.facts.extended.raid import RaidFactCollector
 from ansible_collections.deltabg.extended_facts.plugins.module_utils.facts.extended.smartctl import SmartctlFactCollector
 from ansible_collections.deltabg.extended_facts.plugins.module_utils.facts.extended.mysql import MysqlFactCollector
+from ansible_collections.deltabg.extended_facts.plugins.module_utils.facts.extended.icinga2 import Icinga2FactCollector
+from ansible_collections.deltabg.extended_facts.plugins.module_utils.facts.extended.docker import DockerFactCollector
 
 def main():
     module = AnsibleModule(
@@ -102,7 +104,9 @@ def main():
     all_collector_classes = [
         RaidFactCollector,
         SmartctlFactCollector,
-        MysqlFactCollector
+        MysqlFactCollector,
+        Icinga2FactCollector,
+        DockerFactCollector
     ]
 
     # rename namespace_name to root_key?
