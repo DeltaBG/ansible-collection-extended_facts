@@ -26,11 +26,15 @@ class SmartctlFactCollector(BaseFactCollector):
             smartctl_facts['devices'] = []
             smartctl_regex = re.compile(r'^(/.*?)\s+-d\s+(.*?)\s+#\s+(.*)', re.MULTILINE)
             for device in smartctl_regex.findall(smartctl_output):
+                if device[1] == 'sat' or device[1] == 'scsi':
+                    device_name = '{}_{}'.format(device[1], device[0].split('/')[-1])
+                else:
+                    device_name = device[1].replace('+', '_').replace(',', '_')
                 smartctl_facts['devices'].append({
                     'device'         : device[0],
                     'type'           : device[1],
                     'comment'        : device[2],
-                    'name'           : device[1].replace('+', '_').replace(',', '_'),
+                    'name'           : device_name,
                     'check_smart.pl' : 'check_smart.pl -d {} -i {}'.format(device[0], device[1])
                 })
             # If have no devices
