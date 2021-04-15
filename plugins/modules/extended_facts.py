@@ -29,7 +29,7 @@ DOCUMENTATION = r'''
 ---
 module: deltabg.extended_facts.extended_facts
 short_description: Module for extended Ansible facts
-version_added: "1.0.2"
+version_added: "1.0.6"
 description:
   - Collecting information about the system in favor
 author:
@@ -37,8 +37,19 @@ author:
 '''
 
 EXAMPLES = r'''
-- name: Gathering extended facts
+- name: Gathering all extended facts
   deltabg.extended_facts.extended_facts:
+
+- name: Gathering all extended facts - alternative
+  deltabg.extended_facts.extended_facts:
+    gather_subset:
+      - 'all'
+
+- name: Gathering extended facts only for raid and docker
+  deltabg.extended_facts.extended_facts:
+    gather_subset:
+      - raid
+      - docker
 
 # These are examples of possible return values.
 ansible_facts:
@@ -80,10 +91,12 @@ from ansible.module_utils.facts.namespace import PrefixFactNamespace
 from ansible.module_utils.facts import ansible_collector
 
 from ansible_collections.deltabg.extended_facts.plugins.module_utils.facts.extended.raid import RaidFactCollector
+from ansible_collections.deltabg.extended_facts.plugins.module_utils.facts.extended.ipmi import IpmiFactCollector
 from ansible_collections.deltabg.extended_facts.plugins.module_utils.facts.extended.smartctl import SmartctlFactCollector
 from ansible_collections.deltabg.extended_facts.plugins.module_utils.facts.extended.mysql import MysqlFactCollector
 from ansible_collections.deltabg.extended_facts.plugins.module_utils.facts.extended.icinga2 import Icinga2FactCollector
 from ansible_collections.deltabg.extended_facts.plugins.module_utils.facts.extended.docker import DockerFactCollector
+
 
 def main():
     module = AnsibleModule(
@@ -99,10 +112,11 @@ def main():
     gather_subset = module.params['gather_subset']
     gather_timeout = module.params['gather_timeout']
     filter_spec = module.params['filter']
-    minimal_gather_subset = frozenset(['raid','smartctl', 'mysql'])
+    minimal_gather_subset = frozenset()
 
     all_collector_classes = [
         RaidFactCollector,
+        IpmiFactCollector,
         SmartctlFactCollector,
         MysqlFactCollector,
         Icinga2FactCollector,
