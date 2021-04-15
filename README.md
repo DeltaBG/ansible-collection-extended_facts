@@ -2,7 +2,13 @@
 
 [![Build Status](https://travis-ci.com/DeltaBG/ansible-collection-extended_facts.svg?branch=master)](https://travis-ci.com/DeltaBG/ansible-collection-extended_facts)
 
-This is a collection with a module for extended Ansible facts. Currently, the module returns information about RAID controllers and `smartctl --scan-open`.
+This is a collection with a module for extended Ansible facts. Currently, the module returns information about:
+ - RAID controllers
+ - IPMI Adapter
+ - `smartctl --scan-open`
+ - MySQL
+ - Docker
+ - Icinga2
 
 ## Getting Started
 
@@ -12,8 +18,11 @@ This collection contains the following ressources.
 | :-------------------------------------------------- | :-------------------------------------------------------- |
 | **plugins/modules/extended_facts.py**               | Main script of module.                                    |
 | **plugins/module_utils/facts/extended/raid.py**     | Script for checking about RAID.                           |
+| **plugins/module_utils/facts/extended/ipmi.py**     | Script for checking about IPMI.                           |
 | **plugins/module_utils/facts/extended/smartctl.py** | Script for checking about block devices using smartctl.   |
 | **plugins/module_utils/facts/extended/mysql.py**    | Script for checking about MySQL.                          |
+| **plugins/module_utils/facts/extended/docker.py**   | Script for checking about Docker.                         |
+| **plugins/module_utils/facts/extended/icinga2.py**  | Script for checking about Icinga2.                        |
 
 ### Prerequisites
 
@@ -37,8 +46,6 @@ To install via the `requirements.yml` file:
 ```yaml
 collections:
   - name: deltabg.extended_facts
-    version: 1.0.2
-    source: https://galaxy.ansible.com
 ```
 or
 ```yaml
